@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<style type="text/css">
+<!--
+body {
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px
+}
+@font-face {
+    font-family: 'simyou';
+    src: url('simyou.ttf');
+}
+@font-face {
+    font-family: 'consola';
+    src: url('consola.ttf');
+}
+-->
+</style>
+
+<html>
+<body>
+<canvas id="Canvas_0" width="800" height="600" style="position:absolute; top:0;left:0 border:1px solid #d3d3d3;"></canvas>
+<canvas id="Canvas_1" width="800" height="600" style="position:absolute; top:0;left:0 border:1px solid #d3d3d3;"></canvas>
+
+<script type="text/javascript" src="general.js"></script>
+<script type="text/javascript" src="handlers\\doublebuff.js"></script>
+<script type="text/javascript" src="handlers\\colorhandler.js"></script>
+<script type="text/javascript" src="handlers\\eventhandler.js"></script>
+<script type="text/javascript" src="handlers\\texthandler.js"></script>
+<script type="text/javascript" src="handlers\\viewhandler.js"></script>
+
+
+<script>
+
+function init_canvas(canvas) {
+	canvas.onmousedown = EventHandler.handleMouseDown;
+}
+
+window.onload = function() {
+	DoubleBuff.init(document.getElementById("Canvas_0"), document.getElementById("Canvas_1"));
+	init_canvas(document.getElementById("Canvas_0"));
+	init_canvas(document.getElementById("Canvas_1"));
+	
+	// document.onkeydown = EventHandler.handleKeyDown;
+	// document.onkeyup = EventHandler.handleKeyUp;
+	
+	document.onmouseup = EventHandler.handleMouseUp;
+	document.onmousemove = EventHandler.handleMouseMove;
+	
+	document.onwheel = EventHandler.handleMouseWheel
+	
+}
+
+setInterval(update, 1000 / 30);
+
+function update() {
+	ViewHandler.on_draw(DoubleBuff.ctx);
+	DoubleBuff.flip();
+}
+
+
+</script>
+
+</body>
+</html>
